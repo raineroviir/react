@@ -494,6 +494,7 @@ var ReactCompositeComponentMixin = {
    * @private
    */
   _processChildContext: function(currentContext) {
+    ReactCurrentOwner.processingChildContext = true;
     var Component = this._currentElement.type;
     var inst = this._instance;
     var childContext = inst.getChildContext && inst.getChildContext();
@@ -511,6 +512,8 @@ var ReactCompositeComponentMixin = {
           ReactPropTypeLocations.childContext
         );
       }
+      console.log('currently inside child Context')
+      console.log(Component)
       for (var name in childContext) {
         invariant(
           name in Component.childContextTypes,
@@ -521,6 +524,7 @@ var ReactCompositeComponentMixin = {
       }
       return assign({}, currentContext, childContext);
     }
+    ReactCurrentOwner.processingChildContext = null;
     return currentContext;
   },
 
