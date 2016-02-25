@@ -512,8 +512,6 @@ var ReactCompositeComponentMixin = {
           ReactPropTypeLocations.childContext
         );
       }
-      console.log('currently inside child Context')
-      console.log(Component)
       for (var name in childContext) {
         invariant(
           name in Component.childContextTypes,
