@@ -427,6 +427,8 @@ describe('ReactCompositeComponent', function() {
   it('should warn about `setState` in getChildContext', function() {
     var container = document.createElement('div');
 
+    var renderPasses = 0;
+
     var Component = React.createClass({
       getInitialState: function() {
         return {value: 0};
@@ -437,11 +439,14 @@ describe('ReactCompositeComponent', function() {
         }
       },
       render: function() {
+        renderPasses++;
         return <div />;
       },
     });
     expect(console.error.calls.length).toBe(0);
-    ReactDOM.render(<Component />, container);
+    var instance = ReactDOM.render(<Component />, container);
+    expect(renderPasses).toBe(2);
+    expect(instance.state.value).toBe(1);
     expect(console.error.calls.length).toBe(1);
     expect(console.error.argsForCall[0][0]).toBe(
       'Warning: setState(...): Cannot call setState inside getChildContext()'

@@ -495,6 +495,9 @@ var ReactCompositeComponentMixin = {
    * @private
    */
   _processChildContext: function(currentContext) {
+    if (__DEV__) {
+      ReactInstrumentation.debugTool.onBeginProcessingChildContext();
+    }
     var Component = this._currentElement.type;
     var inst = this._instance;
     var childContext = inst.getChildContext && inst.getChildContext();
@@ -506,7 +509,6 @@ var ReactCompositeComponentMixin = {
         this.getName() || 'ReactCompositeComponent'
       );
       if (__DEV__) {
-        ReactInstrumentation.debugTool.onBeginProcessingChildContext();
         this._checkPropTypes(
           Component.childContextTypes,
           childContext,

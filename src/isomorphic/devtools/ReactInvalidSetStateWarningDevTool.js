@@ -7,7 +7,7 @@ if (__DEV__) {
   var processingChildContext = false;
 
   var warnInvalidSetState = function() {
-    if (processingChildContext === true) {
+    if (processingChildContext === false) {
       return;
     }
     warning(
