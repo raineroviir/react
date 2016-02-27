@@ -17,7 +17,6 @@ var canDefineProperty = require('canDefineProperty');
 var emptyObject = require('emptyObject');
 var invariant = require('invariant');
 var warning = require('warning');
-var ReactCurrentOwner = require('ReactCurrentOwner');
 
 /**
  * Base class helpers for the updating state of a component.
@@ -75,7 +74,7 @@ ReactComponent.prototype.setState = function(partialState, callback) {
   }
   if (__DEV__) {
     warning(
-      ReactCurrentOwner.processingChildContext == null,
+      this._processingChildContext == false,
       'setState(...): Cannot call setState inside getChildContext()'
     );
   }

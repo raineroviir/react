@@ -16,6 +16,7 @@ var ReactCurrentOwner = require('ReactCurrentOwner');
 var ReactElement = require('ReactElement');
 var ReactErrorUtils = require('ReactErrorUtils');
 var ReactInstanceMap = require('ReactInstanceMap');
+var ReactInstrumentation = require('../../../isomorphic/ReactInstrumentation');
 var ReactNodeTypes = require('ReactNodeTypes');
 var ReactPerf = require('ReactPerf');
 var ReactPropTypeLocations = require('ReactPropTypeLocations');
@@ -498,7 +499,6 @@ var ReactCompositeComponentMixin = {
     var inst = this._instance;
     var childContext = inst.getChildContext && inst.getChildContext();
     if (childContext) {
-      ReactCurrentOwner.processingChildContext = true;
       invariant(
         typeof Component.childContextTypes === 'object',
         '%s.getChildContext(): childContextTypes must be defined in order to ' +
@@ -506,6 +506,7 @@ var ReactCompositeComponentMixin = {
         this.getName() || 'ReactCompositeComponent'
       );
       if (__DEV__) {
+        ReactInstrumentation.debugTool.onBeginProcessingChildContext(inst, true)
         this._checkPropTypes(
           Component.childContextTypes,
           childContext,
@@ -522,7 +523,9 @@ var ReactCompositeComponentMixin = {
       }
       return assign({}, currentContext, childContext);
     }
-    ReactCurrentOwner.processingChildContext = null;
+    if (__DEV__) {
+      ReactInstrumentation.debugTool.onEndProcessingChildContext(inst, false)
+    }
     return currentContext;
   },
 
