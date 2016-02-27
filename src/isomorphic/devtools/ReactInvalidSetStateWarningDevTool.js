@@ -1,3 +1,6 @@
+
+'use strict';
+
 var warning = require('warning');
 
 if (__DEV__) {
@@ -11,7 +14,7 @@ if (__DEV__) {
       false,
       'setState(...): Cannot call setState inside getChildContext()'
     );
-  }
+  };
 }
 
 var ReactInvalidSetStateWarningDevTool = {
@@ -22,7 +25,7 @@ var ReactInvalidSetStateWarningDevTool = {
     processingChildContext = false;
   },
   onSetState() {
-    warnInvalidSetState()
+    warnInvalidSetState();
   },
 };
 

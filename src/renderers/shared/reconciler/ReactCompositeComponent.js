@@ -506,7 +506,7 @@ var ReactCompositeComponentMixin = {
         this.getName() || 'ReactCompositeComponent'
       );
       if (__DEV__) {
-        ReactInstrumentation.debugTool.onBeginProcessingChildContext()
+        ReactInstrumentation.debugTool.onBeginProcessingChildContext();
         this._checkPropTypes(
           Component.childContextTypes,
           childContext,
@@ -524,7 +524,7 @@ var ReactCompositeComponentMixin = {
       return assign({}, currentContext, childContext);
     }
     if (__DEV__) {
-      ReactInstrumentation.debugTool.onEndProcessingChildContext()
+      ReactInstrumentation.debugTool.onEndProcessingChildContext();
     }
     return currentContext;
   },

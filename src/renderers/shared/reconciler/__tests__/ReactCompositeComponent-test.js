@@ -20,7 +20,6 @@ var ReactPropTypes;
 var ReactServerRendering;
 var ReactTestUtils;
 var ReactUpdates;
-var ReactInstrumentation;
 
 var reactComponentExpect;
 
@@ -36,7 +35,6 @@ describe('ReactCompositeComponent', function() {
     ReactTestUtils = require('ReactTestUtils');
     ReactServerRendering = require('ReactServerRendering');
     ReactUpdates = require('ReactUpdates');
-    ReactInstrumentation = require('../../../../isomorphic/ReactInstrumentation');
 
     MorphingComponent = React.createClass({
       getInitialState: function() {
@@ -429,9 +427,6 @@ describe('ReactCompositeComponent', function() {
   it('should warn about `setState` in getChildContext', function() {
     var container = document.createElement('div');
 
-    var renderedState = -1;
-    var renderPasses = 0;
-
     var Component = React.createClass({
       getInitialState: function() {
         return {value: 0};
@@ -442,12 +437,11 @@ describe('ReactCompositeComponent', function() {
         }
       },
       render: function() {
-        renderedState = this.state.value;
         return <div />;
       },
     });
     expect(console.error.calls.length).toBe(0);
-    var instance = ReactDOM.render(<Component />, container);
+    ReactDOM.render(<Component />, container);
     expect(console.error.calls.length).toBe(1);
     expect(console.error.argsForCall[0][0]).toBe(
       'Warning: setState(...): Cannot call setState inside getChildContext()'
