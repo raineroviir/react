@@ -426,7 +426,7 @@ describe('ReactCompositeComponent', function() {
     expect(instance2.state.value).toBe(1);
   });
 
-  it('should warn about setState in getChildContext', function() {
+  it('should warn about `setState` in getChildContext', function() {
     var container = document.createElement('div');
 
     var renderedState = -1;

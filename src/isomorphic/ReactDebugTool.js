@@ -48,11 +48,14 @@ var ReactDebugTool = {
       }
     }
   },
-  onBeginProcessingChildContext(instance, boolean) {
-    emitEvent('onBeginProcessingChildContext', instance, boolean);
+  onBeginProcessingChildContext() {
+    emitEvent('onBeginProcessingChildContext');
   },
-  onEndProcessingChildContext(instance, boolean) {
-    emitEvent('onEndProcessingChildContext', instance, boolean);
+  onEndProcessingChildContext() {
+    emitEvent('onEndProcessingChildContext');
+  },
+  onSetState() {
+    emitEvent('onSetState')
   },
   onMountRootComponent(internalInstance) {
     emitEvent('onMountRootComponent', internalInstance);

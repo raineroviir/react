@@ -12,7 +12,7 @@
 'use strict';
 
 var ReactNoopUpdateQueue = require('ReactNoopUpdateQueue');
-
+var ReactInstrumentation = require('ReactInstrumentation');
 var canDefineProperty = require('canDefineProperty');
 var emptyObject = require('emptyObject');
 var invariant = require('invariant');
@@ -66,16 +66,11 @@ ReactComponent.prototype.setState = function(partialState, callback) {
     'function which returns an object of state variables.'
   );
   if (__DEV__) {
+    ReactInstrumentation.debugTool.onSetState()
     warning(
       partialState != null,
       'setState(...): You passed an undefined or null state object; ' +
       'instead, use forceUpdate().'
-    );
-  }
-  if (__DEV__) {
-    warning(
-      this._processingChildContext == false,
-      'setState(...): Cannot call setState inside getChildContext()'
     );
   }
   this.updater.enqueueSetState(this, partialState);

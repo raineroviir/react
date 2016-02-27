@@ -1,18 +1,28 @@
 var warning = require('warning');
 
 if (__DEV__) {
-  var warnInvalidSetState = function(instance, boolean) {
-    instance._processingChildContext = boolean
-    return;
+  var processingChildContext = false;
+
+  var warnInvalidSetState = function() {
+    if (processingChildContext === true) {
+      return;
+    }
+    warning(
+      false,
+      'setState(...): Cannot call setState inside getChildContext()'
+    );
   }
 }
 
 var ReactInvalidSetStateWarningDevTool = {
-  onBeginProcessingChildContext(instance, boolean) {
-    warnInvalidSetState(instance, boolean)
+  onBeginProcessingChildContext() {
+    processingChildContext = true;
   },
-  onEndProcessingChildContext(instance, boolean) {
-    warnInvalidSetState(instance, boolean)
+  onEndProcessingChildContext() {
+    processingChildContext = false;
+  },
+  onSetState() {
+    warnInvalidSetState()
   },
 };
 
