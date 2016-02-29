@@ -10,7 +10,7 @@
  */
 
 'use strict';
-var ReactInvalidSetStateWarningDevTool = require('./devtools/ReactInvalidSetStateWarningDevTool');
+var ReactInvalidSetStateWarningDevTool = require('ReactInvalidSetStateWarningDevTool');
 var warning = require('warning');
 
 var eventHandlers = [];
