@@ -495,12 +495,15 @@ var ReactCompositeComponentMixin = {
    * @private
    */
   _processChildContext: function(currentContext) {
+    var Component = this._currentElement.type;
+    var inst = this._instance;
     if (__DEV__) {
       ReactInstrumentation.debugTool.onBeginProcessingChildContext();
     }
-    var Component = this._currentElement.type;
-    var inst = this._instance;
     var childContext = inst.getChildContext && inst.getChildContext();
+    if (__DEV__) {
+      ReactInstrumentation.debugTool.onEndProcessingChildContext();
+    }
     if (childContext) {
       invariant(
         typeof Component.childContextTypes === 'object',
@@ -524,9 +527,6 @@ var ReactCompositeComponentMixin = {
         );
       }
       return assign({}, currentContext, childContext);
-    }
-    if (__DEV__) {
-      ReactInstrumentation.debugTool.onEndProcessingChildContext();
     }
     return currentContext;
   },
